@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/Selit-Project/static/css/main.8bd53fc9.css",
+    "main.js": "/Selit-Project/static/js/main.221bd598.js",
+    "static/js/787.49ba4d94.chunk.js": "/Selit-Project/static/js/787.49ba4d94.chunk.js",
+    "static/media/Aboutusimage.jpg": "/Selit-Project/static/media/Aboutusimage.d91de706d68a02f38eec.jpg",
+    "index.html": "/Selit-Project/index.html",
+    "main.8bd53fc9.css.map": "/Selit-Project/static/css/main.8bd53fc9.css.map",
+    "main.221bd598.js.map": "/Selit-Project/static/js/main.221bd598.js.map",
+    "787.49ba4d94.chunk.js.map": "/Selit-Project/static/js/787.49ba4d94.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8bd53fc9.css",
+    "static/js/main.221bd598.js"
+  ]
+}
