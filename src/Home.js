@@ -20,6 +20,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Carousel from './components/carousel';
 import Footer from './components/footer';
+import Loader from './components/loader';
 import Chatroom from './components/chatroom';
 // import Afterlogintop_component from './components/afterlogintop_component';
 // import io from 'socket.io-client'
@@ -27,6 +28,7 @@ import Chatroom from './components/chatroom';
 
 // import ordercard from './components/ordercard';
 function Home() {
+  const [showchatroom,setshowchatroom]=useState(true);
   const [isactive, setisactive] = useState(false);
   const [categoryselect1, setcategoryselect1] = useState(false);
   const [categoryselect2, setcategoryselect2] = useState(false);
@@ -202,7 +204,7 @@ function Home() {
     return (
       <>
         <div className="outer  flex w-[1000px] mt-[30px]">
-          <div className="card  h-[200px] w-[850px] rounded-[20px] shadow-xl shadow-black flex ml-[100px] hover:border-green-500 hover:border-[4px] ">
+          <div className="card h-[200px] w-[850px] rounded-[20px] shadow-xl shadow-black flex ml-[100px] hover:border-green-500 hover:border-[4px] ">
             <div className="left">
               <img className='book-card-image mt-[10px] mx-[20px]  border-4 border-black-300 rounded-[20px] w-[200px] h-[150px]' src={props.bookimage} alt="Book" />
             </div>
@@ -238,6 +240,7 @@ function Home() {
     setshowoderlist(!showorderlist);
   }
   function handlefilter() {
+    setshowchatroom(!showchatroom);
     setisactive(!isactive);
   }
   const amount = "500";
@@ -313,7 +316,7 @@ function Home() {
             <button><div className='bg-slate-500 rounded-[10px]  text-white m-[10px]'>Book Status</div></button>
             <Link to='/orderstatus'><div className='bg-slate-500 rounded-[10px] px-[20px]  text-white m-[10px]'>Orders</div></Link>
           </div>
-          <Link className="navigate font-mono  text-[30px]   hover:bg-slate-300  mt-[35px] rounded-[20px] h-[60px] w-[150px] mx-[10px]" to='/about'>About us</Link>
+          <Link className="navigate font-mono  text-[30px]   hover:bg-slate-300  mt-[35px] rounded-[20px] h-[60px] w-[150px] mx-[10px]" to='/aboutus'>About us</Link>
           <button className="navigate font-mono  rounded-[20px] text-[30px] mt-[20px] flex items-center bg-slate-400 text-white px-[15px] flex h-[65px] w-[150px]" onClick={showlogin}><h2 >Login</h2> <CgAdidas className='my-[10px]' /></button>
           {showloginpage && <Loginwindow />}
         </div >
@@ -332,7 +335,7 @@ function Home() {
             ))
             }
           </div>
-          <Chatroom />
+         <div  className={`${showchatroom? 'block' :'hidden'}`} ><Chatroom /></div> 
           <div className={`filter-menu  bg-[#F2F7F7] border-[4px] border-blue-300 h-[500px] w-[350px] rounded-[20px] ${isactive ? "block" : "hidden"}`}>
             <div className="price-filter mt-[10px]">
               <h4 className='rounded-[40px] border-blue-500 border-4  w-[200px] px-[15px] mt-[5px] ml-[5px] text-[25px]'>Price</h4>
@@ -362,7 +365,9 @@ function Home() {
               </button>
             </div>
           </div>
+
         </div>
+          
         <div className='pt-[40px]'>
           <h1 className='text-[35px] font-mono px-[20px] flex items-center'>More Books <FaArrowAltCircleRight className='mx-[10px]' /></h1>
           <Carousel CarouselBooktitle="The Middle Stories" CarouselBookAuthor="Scott Turow" CarouselImage={"https://www.bookgeeks.in/wp-content/uploads/2023/05/Vahana-Vehicles-of-the-God-by-Stuti-Gupta.jpg"} />
@@ -372,6 +377,10 @@ function Home() {
       </main>
       {/* <EmojiPicker className='m-[auto] z-[-1]' /> */}
       <Footer />
+      {/* <div className='wrapperclass'>
+        Hold A Couple Of Seconds ....
+      <Loader/>
+      </div> */}
     </>
   );
 }

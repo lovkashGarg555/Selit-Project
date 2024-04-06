@@ -4,7 +4,6 @@ import './index.css';
 // import App from './Home';
 import Sellbook from './components/sellbookpage';
 import reportWebVitals from './reportWebVitals';
-import About from './components/Aboutus'
 import Layout from './components/layout'
 import Home from './Home'
 import Orderstatus from '../src/components/orderstatus/orderstatus'

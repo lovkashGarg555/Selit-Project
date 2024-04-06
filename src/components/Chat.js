@@ -6,7 +6,7 @@ const Chat = ({socket,username,room}) => {
     const [messageList, setMessageList] = useState([]);
     // we made it async since it might take time to load date and compute data
     const sendMessage=async()=>{
-        if(currentmessage !==""){
+        if(currentmessage !== ""){
             const messageData={
                 room:room,
                 author:username,
@@ -18,15 +18,19 @@ const Chat = ({socket,username,room}) => {
             setCurrentmessage("");
         }
     }
-    useEffect(()=>{
-        // similar to when we send data from front to back now we send data from back to front
-        socket.on("receive_message",(data)=>{
-        setMessageList((list)=>[...list,data]);
-            
-console.log(data); 
-// next line updates our  message list  with the current message data
-        })
-    },[socket])
+    useEffect(() => {
+        const handleMessage = (data) => {
+            setMessageList((list) => [...list, data]);
+            console.log(data); 
+        };
+    
+        socket.on("receive_message", handleMessage);
+    
+        return () => {
+            // Cleanup: Unsubscribe from the event listener when component unmounts
+            socket.off("receive_message", handleMessage);
+        };
+    }, [socket]);
 
    
   return (
