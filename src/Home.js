@@ -316,7 +316,7 @@ function Home() {
             <button><div className='bg-slate-500 rounded-[10px]  text-white m-[10px]'>Book Status</div></button>
             <Link to='/orderstatus'><div className='bg-slate-500 rounded-[10px] px-[20px]  text-white m-[10px]'>Orders</div></Link>
           </div>
-          <Link className="navigate font-mono  text-[30px]   hover:bg-slate-300  mt-[35px] rounded-[20px] h-[60px] w-[150px] mx-[10px]" to='/aboutus'>About us</Link>
+          <Link className="navigate font-mono  text-[30px]   hover:bg-slate-300  mt-[35px] rounded-[20px] h-[60px] w-[150px] mx-[10px]" to='/about'>About us</Link>
           <button className="navigate font-mono  rounded-[20px] text-[30px] mt-[20px] flex items-center bg-slate-400 text-white px-[15px] flex h-[65px] w-[150px]" onClick={showlogin}><h2 >Login</h2> <CgAdidas className='my-[10px]' /></button>
           {showloginpage && <Loginwindow />}
         </div >
@@ -335,7 +335,7 @@ function Home() {
             ))
             }
           </div>
-         <div  className={`${showchatroom? 'block' :'hidden'}`} ><Chatroom /></div> 
+         <div  className={`${showchatroom==true? 'block' :'hidden'}`}><Chatroom /></div> 
           <div className={`filter-menu  bg-[#F2F7F7] border-[4px] border-blue-300 h-[500px] w-[350px] rounded-[20px] ${isactive ? "block" : "hidden"}`}>
             <div className="price-filter mt-[10px]">
               <h4 className='rounded-[40px] border-blue-500 border-4  w-[200px] px-[15px] mt-[5px] ml-[5px] text-[25px]'>Price</h4>

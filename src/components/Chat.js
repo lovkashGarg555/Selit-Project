@@ -32,7 +32,15 @@ const Chat = ({socket,username,room}) => {
         };
     }, [socket]);
 
-   
+    useEffect(()=>{
+        // similar to when we send data from front to back now we send data from back to front
+        socket.on("receive_message",(data)=>{
+        setMessageList((list)=>[...list,data]);
+            
+console.log(data); 
+// next line updates our  message list  with the current message data
+        })
+    },[socket])
   return (
     <div>
 <div className='chat-header'>

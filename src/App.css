@@ -95,6 +95,7 @@ margin:30px;
   overflow-x:hidden;
   display:flex;
 }
+<<<<<<< HEAD
 .loader{
   border: 10px solid white;
   border-top: 10px solid blue;
@@ -130,6 +131,9 @@ animation: spin 0.5s infinite;
   }
 }
 @media (min-width: 300px) and (max-width:600px) {
+=======
+@media (min-width: 300px) and (max-width:800px) {
+>>>>>>> origin/main
   html{
     width:auto;
   }
@@ -144,10 +148,14 @@ animation: spin 0.5s infinite;
   margin-bottom: 70px;
  }
  .outer{
+<<<<<<< HEAD
   width:100px;
  }
  .selectproductbutoon{
   font-size: 15px;
+=======
+  width: 500px;
+>>>>>>> origin/main
  }
  .card{
   width:500px;
