@@ -152,7 +152,7 @@ let [items,setItems]=useState([]);
     const [password, setPassword] = useState('');
     const handleRegister = async () => {
       try {
-        await axios.post('http://localhost:5000/register', { username, password });
+        await axios.post('https://selit-project-backend.onrender.com/register', { username, password });
         console.log('User registered successfully');
       } catch (error) {
         console.error(error.response.data.error);
@@ -161,7 +161,7 @@ let [items,setItems]=useState([]);
 
     const handleLogin = async () => {
       try {
-        const response = await axios.post('http://localhost:5000/login', { username, password });
+        const response = await axios.post('https://selit-project-backend.onrender.com/login', { username, password });
         console.log('Login successful');
         closelogin();
         console.log('Token:', response.data.token);
@@ -289,8 +289,8 @@ let [items,setItems]=useState([]);
     // const amount=350;
    setAmount( parseFloat(amount.toFixed(3)));
     try {
-      console.log("Hello" + "http://localhost:4000");
-      const res = await fetch(`http://localhost:4000/api/payment/order`, {
+      console.log("Hello" + "https://selit-project-backend.onrender.com");
+      const res = await fetch(`https://selit-project-backend.onrender.com/api/payment/order`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -319,7 +319,7 @@ let [items,setItems]=useState([]);
       handler: async (response) => {
         // console.log("response" + response);
         try {
-          const res = await fetch(`http://localhost:4000/api/payment/verify`, {
+          const res = await fetch(`https://selit-project-backend.onrender.com/api/payment/verify`, {
             method: "POST",
             headers: {
               "content-type": "application/json",
