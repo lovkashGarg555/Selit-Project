@@ -11,7 +11,7 @@ const Sellbookpage = () => {
   return (
     <>
     <div className="sellbookpage w-[100vw] flex flex-col items-center">
-    <div className='sellusbooktitle text-[34px] text-red-500 my-[60px]'>Sell BooKS </div>
+    <div className='sellusbooktitle text-[34px] text-red-500 my-[60px]'>Sell Books </div>
     <div className="sellusbookformcard flex flex-col  justify-center items-center w-[500px] h-[400px] rounded-[20px] border-blue-400 border-[4px] ">
        <div className='text-green-400 text-[30px]'>You are A true Environmentalist!!</div> 
        <div>UserName: <input type="text" placeholder='Username' /></div> 
@@ -28,6 +28,7 @@ const Sellbookpage = () => {
         setPublicationValue(event.target.value)
        }} />{Publicationvalue}</div> 
      <div> Video : <input type="file" accept='video/*' /></div> 
+        < button type='submit' className='mt-[20px] text-[25px] bg-green-600 text-white w-[200px] rounded-[20px] h-[50px] '>Submit</button>
          </div>
          </div>
     </>

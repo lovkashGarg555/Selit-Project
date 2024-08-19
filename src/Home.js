@@ -5,6 +5,7 @@ import './App.css';
 import EmojiPicker from 'emoji-picker-react';
 // import Card from './components/card';
 import { CgAdidas } from "react-icons/cg";
+// import Math from "math"
 import axios from 'axios';
 // import { GiCrossedBones } from "react-icons/gi";
 import { CgTwitter } from 'react-icons/cg';
@@ -67,22 +68,46 @@ function Home() {
     "http://images.amazon.com/images/P/3257203659.01.MZZZZZZZ.jpg",
 
   ];
-
+  const bookPrices = [
+    299,  // Price for book 1
+    399,  // Price for book 2
+    499,  // Price for book 3
+    599,  // Price for book 4
+    699,  // Price for book 5
+    799,  // Price for book 6
+    899,  // Price for book 7
+    999,  // Price for book 8
+    1099, // Price for book 9
+    1199  // Price for book 10
+  ];
   // making a login page popup window
   const [showloginpage, setshowloginpage] = useState(false);
   const [showsignuppage, setshowsignuppage] = useState(false);
 
+let [items,setItems]=useState([]);
+  function addItem(book, author, orderimage,bookprice) {
+    // Create a new item object with the provided properties
+    const newItem = {
+      book: book,
+      author: author,
+      orderimage: orderimage,
+      bookprice:bookprice
+    };
+    const newamount=(bookprice) + amount;
+    setAmount(newamount);
+    console.log("recievided " + newItem.book);
 
-  const [items, setItems] = useState([]);
-  function addItem(book, author, orderimage) {
-
-    // Using the spread operator to create a new array with the existing items and the new item
-    setItems([...items, `Item ${items.length + 1}`]);
-  };
+    // Update the state with the new item
+    setItems([...items, newItem]);
+  }
 
   const removeItem = (index) => {
+    setAmount(amount-(bookPrices[index]));
     // Using filter to create a new array without the item at the specified index
     setItems(items.filter((_, i) => i !== index));
+    if(!items){
+      setAmount(0);
+    }
   };
 
   function showlogin() {
@@ -176,47 +201,46 @@ function Home() {
     )
   }
 
-  const [orderbookDescription, setorderbookDescription] = useState([]);
-  const [orderbookAuthorname, setorderbookAuthorname] = useState([]);
-  const [orderBookimage, setorderBookimage] = useState("");
+
   // card 
-  const Card = (props) => {
-    // State to store the list of items
-    const handleorderreacttoast = (event) => {
-      const parentElement = event.target.parentElement.parentElement.parentElement.parentElement;
-      // Get the class of the parent element
-      const parentElementClass = parentElement.className;
-      // console.log((parentElementClass));
-      let indexing = parseInt(parentElementClass.substring(9, parentElementClass.length));
-      // console.log(indexing)
-      //   const bookouter = document.getElementsByClassName(parentElementClass);
-      const book = document.getElementsByClassName('description-name')[indexing].textContent;
-      //  console.log(book)
-      const author = document.getElementsByClassName('Author-name')[indexing].textContent;
-      const orderimage = document.getElementsByClassName('book-card-image')[indexing].textContent;
-      setorderbookDescription();
-      setorderbookAuthorname(author);
-      setorderBookimage(orderimage);
-      addItem(book, author, orderimage);
-      toast.success("Product Selected")
-    }
-    // const [orderplacedlist, setorderplacedlist] = useState("No order placed till Now");
+  const Card = ({ bookimage, description, authorname, addItem,bookprice }) => {
+    const handleOrderReactToast = () => {
+      // Add the item to the list using the addItem function passed as a prop
+      addItem(description, authorname, bookimage,bookprice);
+      toast.success("Product Selected");
+    };
+  
     return (
       <>
-        <div className="outer  flex w-[1000px] mt-[30px]">
+        <div className="outer flex w-[1000px] mt-[30px]">
           <div className="card h-[200px] w-[850px] rounded-[20px] shadow-xl shadow-black flex ml-[100px] hover:border-green-500 hover:border-[4px] ">
             <div className="left">
-              <img className='book-card-image mt-[10px] mx-[20px]  border-4 border-black-300 rounded-[20px] w-[200px] h-[150px]' src={props.bookimage} alt="Book" />
+              <img
+                className='book-card-image mt-[10px] mx-[20px] border-4 border-black-300 rounded-[20px] w-[200px] h-[150px]'
+                src={bookimage}
+                alt="Book"
+              />
             </div>
             <div className="right w-[1000px] h-[200px] flex flex-col align-center justify-center px-[40px]">
-              <div className="description-name text-[25px]" id={`Description`}>{props.Description}</div>
-              <div className="Author-name" id="Authorname">Premchand dyal sharma</div>
-              <div className="Price flex">
-                <div className="current-price text-red-400 text-[30px] mx-[10px]" id="Bookprice">₹399</div>
-                <div className="mrp-price  text-[23px] mx-[10px]">MRP : ₹699</div>
-                <div className="discount  text-[23px] mx-[10px]">(45% off)</div>
+              <div className="description-name text-[25px]" id={`Description`}>
+                {description}
               </div>
-              <button className="selectproductbutton  text-white text-[27px] bg-green-500 border-green-500 border-4  mx-[20px] w-[150px] rounded-[10px] " onClick={handleorderreacttoast}>Add Item</button>
+              <div className="Author-name" id="Authorname">
+                {authorname}
+              </div>
+              <div className="Price flex">
+                <div className="current-price text-red-400 text-[30px] mx-[10px]" id="Bookprice">
+                ₹{bookprice}
+                </div>
+                <div className="mrp-price text-[23px] mx-[10px]">₹{bookprice}</div>
+                <div className="discount text-[23px] mx-[10px]">(0% off)</div>
+              </div>
+              <button
+                className="selectproductbutton text-white text-[27px] bg-green-500 border-green-500 border-4 mx-[20px] w-[150px] rounded-[10px]"
+                onClick={handleOrderReactToast}
+              >
+                Add Item
+              </button>
               <ToastContainer
                 position="top-center"
                 autoClose={3000}
@@ -224,15 +248,14 @@ function Home() {
                 newestOnTop={false}
                 closeOnClick
                 pauseOnHover
-                theme="colored" />
+                theme="colored"
+              />
             </div>
           </div>
-
         </div>
       </>
-    )
-  }
-  
+    );
+  };
 
 
 
@@ -243,25 +266,7 @@ function Home() {
     setshowchatroom(!showchatroom);
     setisactive(!isactive);
   }
-  const amount = "500";
-  const currency = "INR";
-  const receiptId = "qwsaq1";
-  const paymenthandler = async (e) => {
-    const response = await fetch("http://localhost:5000/order", {
-      method: "POST",
-      body: JSON.stringify({
-        amount,
-        currency,
-        receipt: receiptId,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
 
-    });
-    const order = await response.json();
-    console.log(order);
-  }
   function handlecategory(e) {
     if (e.target.id === 1) {
       setcategoryselect1(!categoryselect1);
@@ -279,45 +284,116 @@ function Home() {
       setcategoryselect5(!categoryselect5);
     }
   }
+  const [amount, setAmount] = useState(0);
+  const handlePayment = async () => {
+    // const amount=350;
+   setAmount( parseFloat(amount.toFixed(3)));
+    try {
+      console.log("Hello" + "http://localhost:4000");
+      const res = await fetch(`http://localhost:4000/api/payment/order`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+        amount,
+        }),
+      });
+      const data = await res.json();
+      console.log(data);
+      handlePaymentVerify(data.data);
+    } catch (eror) {
+      console.error(eror);
+      console.log(eror);
+    }
+  };
+  // handlepayment verify function
+  const handlePaymentVerify = async (data) => {
+    const options = {
+      key: process.env.RAZORPAY_KEY_ID,
+      amount: data.amount,
+      currency: data.currency,
+      name: "Random Kumar",
+      description: "Testing the app",
+      order_id: data.id,
+      handler: async (response) => {
+        // console.log("response" + response);
+        try {
+          const res = await fetch(`http://localhost:4000/api/payment/verify`, {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify({
+              name: "Random Kumar",
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+              amount:data.amount,
+            }),
+          });
+
+          const verifyData = await res.json();
+          if (verifyData.message) {
+            toast.success(verifyData.message);
+            // clearing the checkout section 
+            setItems([]);
+            setAmount(0);
+          } else {
+            toast.error("Verification failed");
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      },
+      theme:{
+        color:"#5f63b8"
+      }
+    };
+    const rzp1=new window.Razorpay(options);
+    rzp1.open();
+  };
   return (
     <>
-      <div className="navbar sticky top-[0] text-black font-mono font-style-italic  h-[100px] w-[100vw] bg-slate-200 mx-[5px] flex ">
-        <div className="title text-[55px] tracking-widest font-extrabold text-[45px] px-[20px] py-[15px]  font-serif">Selit</div>
+      <div className="navbar sticky top-[0] text-black font-mono font-style-italic  h-[90px] w-[100vw] bg-slate-200 mx-[5px] flex ">
+        <div className="title text-[55px] tracking-widest font-extrabold text-[45px] px-[20px] py-[10px]  font-serif">Selit</div>
         <div className="navigators flex ml-[40px] justify-end w-[80%] ">
-          <Link className={`navigate font-mono  text-[30px]   mt-[30px]  hover:bg-slate-300 rounded-[20px] h-[60px] w-[120px] px-[20px] flex ${isacitve? 'text-red-400':'text-gray-400'}` } to='/'>Home </Link>
-          <button className="navigate font-mono  text-[30px]  mx-[10px] flex items-center mt-[25px] hover:bg-slate-300  rounded-[20px] h-[60px] w-[150px] px-[10px]" onClick={handleorderlist}>Cart<FaShoppingCart className='mt-[7px] mx-[4px]' />{items.length}</button>
+          <Link className={`navigate font-mono  text-[30px]   mt-[20px]  hover:bg-slate-300 rounded-[20px] h-[60px] w-[120px] px-[20px] flex ${isacitve? 'text-red-400':'text-gray-400'}` } to='/'>Home </Link>
+          <button className="navigate font-mono  text-[30px]  mx-[10px] flex items-center mt-[15px] hover:bg-slate-300  rounded-[20px] h-[60px] w-[150px] px-[10px]" onClick={handleorderlist}>Cart<FaShoppingCart className='mt-[7px] mx-[4px]' />{items.length}</button>
           <div className={`orderlist fixed  top-[14%] z-100 bg-[#F2F7F7] right-[30%] w-[450px] h-[400px]  border-[3px] border-blue-400 overflow-y-scroll ${showorderlist ? "show" : "hidden"}`} id='orderlist'>
             <ul >
               {/* Mapping over the items array to render each item */}
-              {items.map((item, index) => (
+              {items.map((item, index) => {
+              //  amount=item.bookprice + amount;
+                  return (
                 <li className='flex w-[400px] ' key={index}>
                   {/* {item} */}
                   <div className="left">
-                    <img className='mt-[10px] ml-[10px]  border-4 border-black-300  w-[150px] h-[130px]' src={orderBookimage} alt="Book" />
+                    <img className='mt-[10px] ml-[10px]  border-4 border-black-300  w-[150px] h-[130px]' src={item.orderimage} alt="Book" />
                   </div>
                   <div className="right w-[330px] h-[130px] flex flex-col align-center justify-center px-[20px]">
-                    <div className="description-name text-[15px]">{orderbookDescription}</div>
-                    <div className="Author-name">{orderbookAuthorname}</div>
+                    <div className="description-name text-[15px]">{item.book}</div>
+                    {/* <div className="Author-name">{item.author}</div> */}
                     <div className="Price flex">
-                      <div className="current-price text-red-400 text-[20px] mx-[10px]">₹399</div>
-                      <div className="mrp-price  text-[15px] ">MRP :₹699</div>
+                      <div className="current-price text-red-400 text-[20px] mx-[10px]">₹{item.bookprice}</div>
+                      <div className="mrp-price  text-[15px] ">MRP :₹{item.bookprice}</div>
                     </div>
                   </div>
                   {/* Button to remove the item when clicked */}
                   <button className="cancelorder flex flex-col align-center mt-[30px] mr-[20px] w-[20px]" onClick={() => removeItem(index)}>X </button>
                 </li>
-              ))}
+)})}
             </ul>
-            <button className="checkout  text-white text-[30px] flex justify-center bg-green-500 border-green-500 border-4  mx-[30%] my-[10px] w-[150px] rounded-[10px] " onClick={paymenthandler}>Checkout</button>
+            <button className="checkout  text-white text-[30px] flex justify-center bg-green-500 border-green-500 border-4  mx-[20%] my-[10px] w-[250px] rounded-[10px] " onClick={handlePayment}>Checkout amount ₹{amount} </button>
           </div>
-          <button className={`navigate font-mono  text-[30px]  hover:bg-slate-300  mt-[25px] rounded-[20px] h-[60px] w-[150px] mx-[10px] `} onClick={showSerivesmenu}>Services</button>
+          <button className={`navigate font-mono  text-[30px]  hover:bg-slate-300  mt-[15px] rounded-[20px] h-[60px] w-[150px] mx-[10px] `} onClick={showSerivesmenu}>Services</button>
           <div className={`Servicesmenu fixed top-[14%] right-[27%] bg-slate-50 w-[200px] h-[200px] text-[25px] ${showServices ? "show" : "hidden"} flex flex-col `}>
             <Link to='/Sellbookpage'><div className='bg-slate-500 rounded-[10px]  text-white m-[10px] px-[20px]'>Sell Book</div></Link>
             <button><div className='bg-slate-500 rounded-[10px]  text-white m-[10px]'>Book Status</div></button>
             <Link to='/orderstatus'><div className='bg-slate-500 rounded-[10px] px-[20px]  text-white m-[10px]'>Orders</div></Link>
           </div>
-          <Link className="navigate font-mono  text-[30px]   hover:bg-slate-300  mt-[35px] rounded-[20px] h-[60px] w-[150px] mx-[10px]" to='/about'>About us</Link>
-          <button className="navigate font-mono  rounded-[20px] text-[30px] mt-[20px] flex items-center bg-slate-400 text-white px-[15px] flex h-[65px] w-[150px]" onClick={showlogin}><h2 >Login</h2> <CgAdidas className='my-[10px]' /></button>
+          <Link className="navigate font-mono  text-[30px]   hover:bg-slate-300  my-[24px] rounded-[20px] h-[60px] pl-[5px] w-[150px] mx-[10px]" to='/about'>About us</Link>
+          <button className="navigate font-mono  rounded-[20px] text-[30px] mt-[10px] flex items-center bg-slate-400 text-white px-[15px] flex h-[65px] w-[150px]" onClick={showlogin}><h2 >Login</h2> <CgAdidas className='my-[10px]' /></button>
           {showloginpage && <Loginwindow />}
         </div >
       </div >
@@ -331,7 +407,14 @@ function Home() {
         <div className="main bg-slate-50 flex">
           <div className='cards-columns'>
             {bookNames.map((bookname, index) => (
-              <div className={`bookindex${index}`}> <Card key={index} Description={bookname} bookimage={bookImages[index]} /></div>
+              <div key={index} className={`bookindex${index}`}> <Card
+              bookimage={bookImages[index]}
+              description={bookname}
+              authorname="Premchand Ji"
+              addItem={addItem}
+              bookprice={bookPrices[index]}
+
+            /></div>
             ))
             }
           </div>
